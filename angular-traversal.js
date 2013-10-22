@@ -1,45 +1,42 @@
-var mod = angular.module('uiRouterSample');
+var traversal = angular.module('traversal', ['ui.router']);
 
-// A RESTful factory for retrieving contacts from 'contacts.json'
-mod.factory('contacts', ['$http', function ($http, utils) {
-    var path = 'contacts.json';
-    var contacts = $http.get(path).then(function (resp) {
-        return resp.data.contacts;
-    });
+function Traverser() {
+    this.color = 'grey';
+};
 
-    var factory = {};
-    factory.all = function () {
-        return contacts;
-    };
-    factory.getx = function (id) {
-        return contacts.then(function () {
-            return utils.findById(contacts, id);
-        })
-    };
-    return factory;
-}]);
+Traverser.prototype.comeBack = function () {
+    this.color = 'white';
+};
 
-mod.factory('utils', function () {
+Traverser.prototype.traverse = function () {
+    /* Given a new path, find the right state and invoke it*/
+};
 
-    return {
 
-        // Util for finding an object by its 'id' property among an array
-        findById: function findById(a, id) {
-            for (var i = 0; i < a.length; i++) {
-                if (a[i].id == id) return a[i];
-            }
-            return null;
-        },
+traversal.service('traversalService', Traverser);
 
-        // Util for returning a randomKey from a collection that also isn't the current key
-        newRandomKey: function newRandomKey(coll, key, currentKey) {
-            var randKey;
-            do {
-                randKey = coll[Math.floor(coll.length * Math.random())][key];
-            } while (randKey == currentKey);
-            return randKey;
-        }
+var injector = angular.injector(['traversal', 'ng']);
 
-    };
-
+injector.invoke(function (traversalService) {
+    console.log(traversalService.color);
+    traversalService.comeBack();
+    console.log(traversalService.color);
 });
+
+traversal
+    .run(['$rootScope', '$state', '$stateParams', 'traversalService',
+             function ($rootScope, $state, traversalService) {
+                 $rootScope.$on(
+                     '$locationChangeStart', function (event, newUrl, oldUrl) {
+                         var old_path = oldUrl.split('#')[1];
+                         var new_path = newUrl.split('#')[1];
+                         console.log('newURL', new_path);
+                         $state.go('contacts.detail', { contactId: 42 });
+
+
+                         event.preventDefault(); // This prevents the navigation from happening
+                     }
+                 );
+
+
+             }]);
