@@ -1,0 +1,17 @@
+{
+    "title": "Site Root",
+    "type": "SiteRoot",
+    "items": [
+        {
+            "name": "docA",
+            "title": "Document A",
+            "type": "Document"
+        },
+        {
+            "name": "docB",
+            "title": "Document B",
+            "type": "Document"
+        }
+
+    ]
+}

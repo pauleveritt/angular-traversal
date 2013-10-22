@@ -2,7 +2,7 @@
 var mod = angular.module('uiRouterSample');
 
 mod.config(['$stateProvider', '$urlRouterProvider',
-               function ($stateProvider, $urlRouterProvider, $rootScope) {
+               function ($stateProvider, $urlRouterProvider, $rootScope, $http) {
 
                    /////////////////////////////
                    // Redirects and Otherwise //
@@ -76,7 +76,16 @@ mod.config(['$stateProvider', '$urlRouterProvider',
                                       contacts: ['contacts',
                                           function (contacts) {
                                               return contacts.all();
+                                          }],
+                                      init: ['$http', 'traversalService',
+                                          function ($http, traversalService) {
+                                              var path = 'contacts.json';
+                                              return $http.get(path)
+                                                  .then(function (resp) {
+                                                            traversalService.load_data(resp.data.contacts);
+                                                        });
                                           }]
+
                                   },
 
                                   // You can pair a controller to your template. There *must* be a template to pair with.

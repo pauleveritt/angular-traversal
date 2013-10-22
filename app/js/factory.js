@@ -1,7 +1,7 @@
 var mod = angular.module('uiRouterSample');
 
 // A RESTful factory for retrieving contacts from 'contacts.json'
-mod.factory('contacts', ['$http', function ($http, utils) {
+mod.factory('contacts', ['$http', function ($http) {
     var path = 'contacts.json';
     var contacts = $http.get(path).then(function (resp) {
         return resp.data.contacts;
@@ -10,11 +10,6 @@ mod.factory('contacts', ['$http', function ($http, utils) {
     var factory = {};
     factory.all = function () {
         return contacts;
-    };
-    factory.getx = function (id) {
-        return contacts.then(function () {
-            return utils.findById(contacts, id);
-        })
     };
     return factory;
 }]);
