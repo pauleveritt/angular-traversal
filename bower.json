@@ -1,0 +1,25 @@
+{
+    "name": "angular-traversal",
+    "dependencies": {
+        "angular": "1.2.0-rc.3",
+        "angular-route": "1.2.0-rc.3",
+        "angular-ui-router": "0.2.0",
+        "underscore": "~1.5.1"
+    },
+    "version": "0.0.0",
+    "homepage": "",
+    "authors": [
+        "Paul Everitt <paul@agendaless.com>"
+    ],
+    "description": "Traversal dispatch in Angular",
+    "main": "angularDispatch.js",
+    "license": "MIT",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ]
+}
