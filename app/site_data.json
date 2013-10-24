@@ -1,0 +1,34 @@
+{
+    "title": "Site Root",
+    "type": "SiteRoot",
+    "items": [
+        {
+            "name": "docA",
+            "title": "Document A",
+            "type": "Document"
+        },
+        {
+            "name": "docB",
+            "title": "Document B",
+            "type": "Document"
+        },
+        {
+            "name": "contacts",
+            "title": "Contact List",
+            "type": "Folder",
+            "items": [
+                {
+                    "name": "1",
+                    "title": "Alice",
+                    "type": "Person"
+                },
+                {
+                    "name": "42",
+                    "title": "Bob",
+                    "type": "Person"
+                }
+            ]
+        }
+
+    ]
+}

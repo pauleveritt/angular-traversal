@@ -11,7 +11,7 @@ mod.factory('contacts', ['$http', function ($http, utils) {
     factory.all = function () {
         return contacts;
     };
-    factory.getx = function (id) {
+    factory.get = function (id) {
         return contacts.then(function () {
             return utils.findById(contacts, id);
         })

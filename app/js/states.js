@@ -77,12 +77,14 @@ mod.config(['$stateProvider', '$urlRouterProvider',
                                           function (contacts) {
                                               return contacts.all();
                                           }],
-                                      init: ['$http', 'traversalService',
-                                          function ($http, traversalService) {
-                                              var path = 'contacts.json';
-                                              return $http.get(path)
+                                      init: ['$http', '$window', '$state', 'traversalService',
+                                          function ($http, $window, $state, traversalService) {
+                                              var json_url = 'site_data.json';
+                                              var path = $window.location.href;
+                                              return $http.get(json_url)
                                                   .then(function (resp) {
-                                                            traversalService.load_data(resp.data.contacts);
+                                                            traversalService.load_data(resp.data);
+                                                            traversalService.traverse($state, path);
                                                         });
                                           }]
 
