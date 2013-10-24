@@ -4,28 +4,12 @@ function Traverser() {
     this._site_data = null;
 };
 
-
-function identity(value) {
-    return value;
-};
-
-var any = function (obj, iterator, context) {
-    var nativeSome = Array.prototype.some;
-    iterator || (iterator = identity);
-    var result = false;
-    if (obj == null) return result;
-    if (nativeSome && obj.some === nativeSome) return obj.some(iterator, context);
-};
-
-function findOne(obj, iterator, context) {
-    var result;
-    any(obj, function (value, index, list) {
-        if (iterator.call(context, value, index, list)) {
-            result = value;
-            return true;
-        }
-    });
-    return result;
+// Utility function
+function findByName(a, name) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i].__name__ == name) return a[i];
+    }
+    return null;
 };
 
 
@@ -119,13 +103,12 @@ Traverser.prototype.traverse = function ($state, newUrl) {
     var path_items = this.new_path.split('/').filter(function (next_segment) {
         return next_segment;
     });
+
     path_items.forEach(function (next_name) {
 
         if (context.items) {
 
-            next = findOne(context.items, function (i) {
-                return i.__name__ == next_name;
-            }, next_name);
+            next = findByName(context.items, next_name);
 
         } else {
             next = null;
