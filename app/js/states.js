@@ -2,7 +2,7 @@
 var mod = angular.module('traversalSample');
 
 mod.config(['$stateProvider', '$urlRouterProvider',
-               function ($stateProvider, $urlRouterProvider, $rootScope, $http) {
+               function ($stateProvider) {
 
                    var abstract_state = {
                        // Abstract parent of other states
