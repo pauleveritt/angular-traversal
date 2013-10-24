@@ -5,6 +5,27 @@ function Traverser() {
 };
 
 
+var traversal_state = {
+    // This is the "matchall" state that catches all URLs
+    name: 'traverser',
+    url: '*path',
+    resolve: {
+        init: ['$http', '$window', '$state', 'traversalService',
+            function ($http, $window, $state, traversalService) {
+                if (!traversalService._site_data) {
+                    // Don't have data yet
+                    var json_url = 'site_data.json';
+                    var path = $window.location.href;
+                    return $http.get(json_url)
+                        .then(function (resp) {
+                                  traversalService.load_data(resp.data);
+                                  traversalService.traverse($state, path);
+                              });
+                }
+            }]
+    }
+};
+
 Traverser.prototype.load_data = function (data) {
     // Walk tree and assign __parent__ references
     function walk_tree(parent, child) {

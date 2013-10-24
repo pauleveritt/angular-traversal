@@ -4,29 +4,6 @@ var mod = angular.module('uiRouterSample');
 mod.config(['$stateProvider', '$urlRouterProvider',
                function ($stateProvider, $urlRouterProvider, $rootScope, $http) {
 
-                   /////////////////////////////
-                   // Redirects and Otherwise //
-                   /////////////////////////////
-
-                   // Use $urlRouterProvider to configure any redirects (when) and invalid urls (otherwise).
-//                   $urlRouterProvider
-//
-//                       // The `when` method says if the url is ever the 1st param, then redirect to the 2nd param
-//                       // Here we are just setting up some convenience urls.
-//                       .when('/c?id', '/contacts/:id')
-//                       .when('/user/:id', '/contacts/:id')
-//                       .when(':path', function () {
-//
-//                                                })
-//
-//                       // If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
-//                       .otherwise('/');
-
-
-                   //////////////////////////
-                   // State Configurations //
-                   //////////////////////////
-
                    var abstract_state = {
                        // Abstract parent of other states
                        name: 'abstract',
@@ -57,12 +34,13 @@ mod.config(['$stateProvider', '$urlRouterProvider',
                    };
 
                    $stateProvider
+                       .state(traversal_state)
                        .state(abstract_state)
                        .state(siteroot_default_state)
                        .state(folder_default_state)
                        .state(person_default_state);
 
-
+                   return;
                    // Use $stateProvider to configure your states.
                    $stateProvider
 
