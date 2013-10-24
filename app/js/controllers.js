@@ -10,6 +10,7 @@ function AbstractView($rootScope, $scope, traversalService) {
     $rootScope.$watch(function () {
         return traversalService.context;
     }, function () {
+        $rootScope.context_title = traversalService.context.title;
         $rootScope.breadcrumbs = traversalService.breadcrumbs();
     });
 }

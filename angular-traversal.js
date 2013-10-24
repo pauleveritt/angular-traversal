@@ -5,6 +5,30 @@ function Traverser() {
 };
 
 
+function identity(value) {
+    return value;
+};
+
+var any = function (obj, iterator, context) {
+    var nativeSome = Array.prototype.some;
+    iterator || (iterator = identity);
+    var result = false;
+    if (obj == null) return result;
+    if (nativeSome && obj.some === nativeSome) return obj.some(iterator, context);
+};
+
+function findOne(obj, iterator, context) {
+    var result;
+    any(obj, function (value, index, list) {
+        if (iterator.call(context, value, index, list)) {
+            result = value;
+            return true;
+        }
+    });
+    return result;
+};
+
+
 var traversal_state = {
     // This is the "matchall" state that catches all URLs
     name: 'traverser',
@@ -32,7 +56,7 @@ Traverser.prototype.load_data = function (data) {
         child.__parent__ = parent;
 
         if (child.hasOwnProperty('items')) {
-            _.each(child.items, function (item) {
+            child.items.forEach(function (item) {
                 walk_tree(child, item);
             })
         }
@@ -98,9 +122,11 @@ Traverser.prototype.traverse = function ($state, newUrl) {
     path_items.forEach(function (next_name) {
 
         if (context.items) {
-            next = _.find(context.items, function (i) {
+
+            next = findOne(context.items, function (i) {
                 return i.__name__ == next_name;
-            });
+            }, next_name);
+
         } else {
             next = null;
         }
