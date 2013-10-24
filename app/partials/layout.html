@@ -1,0 +1,22 @@
+<div>
+    <h1>Inside Layout Version {{ layout_version }}</h1>
+    <p>This part is from <code>partials/layout.html</code> and is
+    bound to the <code>abstract_state</code>, which also binds to
+        the <code>AbstractView</code> controller.</p>
+    <div>
+        <span ng-repeat="p in breadcrumbs">
+            <a ng-href="{{ p.href }}">{{ p.title ? p.title
+                : 'No Title' }}</a>
+            <span ng-show="!$last">>></span>
+        </span>
+    </div>
+    <h4>Site Map</h4>
+    <ul>
+        <li ng-repeat="child in traverser.context.items">
+            <a ng-href="{{traverser.resource_url(child)}}">
+                {{ child.title }}
+            </a>
+        </li>
+    </ul>
+    <div ui-view/>
+</div>

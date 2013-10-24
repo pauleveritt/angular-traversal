@@ -1,29 +1,30 @@
 {
+    "__name__": "",
     "title": "Site Root",
     "type": "SiteRoot",
     "items": [
         {
-            "name": "docA",
+            "__name__": "docA",
             "title": "Document A",
             "type": "Document"
         },
         {
-            "name": "docB",
+            "__name__": "docB",
             "title": "Document B",
             "type": "Document"
         },
         {
-            "name": "contacts",
+            "__name__": "contacts",
             "title": "Contact List",
             "type": "Folder",
             "items": [
                 {
-                    "name": "1",
+                    "__name__": "1",
                     "title": "Alice",
                     "type": "Person"
                 },
                 {
-                    "name": "42",
+                    "__name__": "42",
                     "title": "Bob",
                     "type": "Person"
                 }

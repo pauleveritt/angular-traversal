@@ -27,6 +27,42 @@ mod.config(['$stateProvider', '$urlRouterProvider',
                    // State Configurations //
                    //////////////////////////
 
+                   var abstract_state = {
+                       // Abstract parent of other states
+                       name: 'abstract',
+                       abstract: true,
+                       templateUrl: 'partials/layout.html',
+                       controller: AbstractView
+                   };
+
+                   var siteroot_default_state = {
+                       name: 'siteroot-default',
+                       parent: abstract_state,
+                       templateUrl: 'partials/siteroot_view.html',
+                       controller: SiteRootView
+                   };
+
+                   var folder_default_state = {
+                       name: 'folder-default',
+                       parent: abstract_state,
+                       templateUrl: 'partials/folder_view.html',
+                       controller: FolderView
+                   };
+
+                   var person_default_state = {
+                       name: 'person-default',
+                       parent: abstract_state,
+                       templateUrl: 'partials/person_view.html',
+                       controller: PersonView
+                   };
+
+                   $stateProvider
+                       .state(abstract_state)
+                       .state(siteroot_default_state)
+                       .state(folder_default_state)
+                       .state(person_default_state);
+
+
                    // Use $stateProvider to configure your states.
                    $stateProvider
 
