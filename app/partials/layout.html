@@ -12,12 +12,5 @@
         bound to the <code>abstract_state</code>, which also binds to
         the <code>AbstractView</code> controller.</p>
 
-    <ul>
-        <li ng-repeat="child in traverser.context.items">
-            <a ng-href="{{traverser.resource_url(child)}}">
-                {{ child.title }}
-            </a>
-        </li>
-    </ul>
     <div ui-view/>
 </div>

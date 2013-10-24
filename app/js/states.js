@@ -26,6 +26,13 @@ mod.config(['$stateProvider', '$urlRouterProvider',
                        controller: FolderView
                    };
 
+                   var folder_adddocument_state = {
+                       name: 'folder-adddocument',
+                       parent: abstract_state,
+                       templateUrl: 'partials/folder_adddocument.html',
+                       controller: FolderAddDocumentView
+                   };
+
                    var document_default_state = {
                        name: 'document-default',
                        parent: abstract_state,
@@ -46,6 +53,7 @@ mod.config(['$stateProvider', '$urlRouterProvider',
                        .state(siteroot_default_state)
                        .state(document_default_state)
                        .state(folder_default_state)
+                       .state(folder_adddocument_state)
                        .state(person_default_state);
 
                    return;

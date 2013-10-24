@@ -10,6 +10,7 @@ function AbstractView($rootScope, $scope, traversalService) {
     $rootScope.$watch(function () {
         return traversalService.context;
     }, function () {
+        $rootScope.context = traversalService.context;
         $rootScope.context_title = traversalService.context.title;
         $rootScope.breadcrumbs = traversalService.breadcrumbs();
     });
@@ -19,6 +20,9 @@ function SiteRootView($scope) {
 }
 
 function FolderView($scope) {
+}
+
+function FolderAddDocumentView($scope) {
 }
 
 function DocumentView($scope) {

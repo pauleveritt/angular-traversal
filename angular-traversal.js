@@ -57,6 +57,7 @@ Traverser.prototype.resource_url = function (resource, view_name) {
     var lineage = [];
 
     function walk(r, lineage) {
+        console.log('lineage', r, r.__name__, view_name);
         lineage.push(r.__name__);
         if (r.__parent__) {
             walk(r.__parent__, lineage);
