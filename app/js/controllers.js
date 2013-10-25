@@ -2,7 +2,6 @@ function AbstractView($rootScope, $scope, traversalService) {
     /* "Superclass" state of other states. Put stuff in here needed for
      the layout. No access to resourceTree.request()  */
     $scope.layout_version = 9939;
-    $scope.traverser = traversalService;
 
 
     // The layout breadcrumbs need to watch something that changes

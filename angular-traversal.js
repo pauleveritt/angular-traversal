@@ -57,19 +57,31 @@ Traverser.prototype.resource_url = function (resource, view_name) {
     var lineage = [];
 
     function walk(r, lineage) {
-        console.log('lineage', r, r.__name__, view_name);
         lineage.push(r.__name__);
         if (r.__parent__) {
             walk(r.__parent__, lineage);
         }
     }
 
-    walk(resource, lineage);
-    lineage = lineage.reverse();
+    /* Walking the ancestors can be expensive. Cache this by storing
+    the base part of the resource_url on the resource as
+    __base_resource_url__  */
+    var base_url = '';
+    if (resource.hasOwnProperty('__base_url__')) {
+        base_url =  resource.__base_url__;
+    } else {
+        walk(resource, lineage);
+        lineage = lineage.reverse();
+        base_url = '#' + lineage.join('/')
+        resource.__base_url__ = base_url;
+    };
+
+
     if (view_name) {
-        lineage.push(view_name);
+        base_url = base_url + '/' + view_name;
     }
-    return '#' + lineage.join('/');
+
+    return base_url;
 };
 
 Traverser.prototype.breadcrumbs = function (resource) {
@@ -140,6 +152,12 @@ var injector = angular.injector(['traversal', 'ng']);
 traversal
     .run(['$rootScope', '$state', 'traversalService',
              function ($rootScope, $state, traversalService) {
+
+                 // Make the traverer available on the root scope
+                 $rootScope.traverser = traversalService;
+
+                 // Register a handler that watches for any changes to
+                 // URL and then runs the traverser
                  $rootScope.$on(
                      '$locationChangeSuccess', function (event, newUrl) {
                          event.preventDefault();

@@ -15,7 +15,7 @@
         },
         {
             "__name__": "contacts",
-            "title": "Contact List",
+            "title": "Contacts Folder",
             "type": "Folder",
             "items": [
                 {
