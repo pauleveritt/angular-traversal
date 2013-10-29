@@ -7,12 +7,15 @@
             src="../bower_components/angular/angular.min.js"></script>
     <script type="text/javascript"
             src="../bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript"
+            src="../bower_components/angular-ui-router/build/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="traversal.js"></script>
     <script type="text/javascript" src="app.js"></script>
 </head>
 <body ng-controller="AppCntrl">
 
 <h1 ng-bind="title">Provider</h1>
-<div ng-view/>
+<div ui-view/>
+
 </body>
 </html>

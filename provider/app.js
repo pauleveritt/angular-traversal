@@ -1,22 +1,40 @@
-var app = angular.module("traversalApp", ['ngRoute', 'traversal']);
+var app = angular.module("traversalApp", ['traversal', 'ui.router']);
 
-app.config(function ($routeProvider, gameProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, gameProvider) {
     gameProvider.setType("Peaceful");
+    $urlRouterProvider.otherwise("/");
+    $stateProvider
+        .state('layout', {
+                   abstract: true,
+                   templateUrl: 'partials/layout.html',
+                   controller: "LayoutView"
 
-    $routeProvider.when('/',
-                        {
-                            templateUrl: "partial1.html",
-                            controller: "AppCntrl",
-                            resolve: {
-                                init: function ($q) {
-                                    var defer = $q.defer();
-                                    defer.resolve();
-                                    return defer.promise;
-                                }}
-                        })
+               })
+        .state('state1', {
+                   url: "/",
+                   parent: "layout",
+                   controller: "SiteRootView",
+                   templateUrl: "partials/siteroot_view.html",
+                   resolve: {
+                       init: function ($q) {
+                           var defer = $q.defer();
+                           defer.resolve();
+                           return defer.promise;
+                       }}
+               })
 });
 
 
 app.controller("AppCntrl", function ($scope, game) {
     $scope.title = game.title;
+});
+
+app.controller("LayoutView", function ($scope, game) {
+    $scope.title = game.title;
+    console.log("SiteRootView");
+});
+
+app.controller("SiteRootView", function ($scope, game) {
+    $scope.title = game.title;
+    console.log("SiteRootView");
 });
