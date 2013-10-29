@@ -12,6 +12,13 @@ function findByName(a, name) {
     return null;
 };
 
+Traverser.prototype.findByProp = function (a, prop, value) {
+    /* Given array, find  first with property matching the value */
+    for (var i = 0; i < a.length; i++) {
+        if (a[i][prop] == value) return a[i];
+    }
+    return null;
+};
 
 var traversal_state = {
     // This is the "matchall" state that catches all URLs
@@ -22,7 +29,6 @@ var traversal_state = {
             function ($http, $window, $state, traversalService) {
                 if (!traversalService._site_data) {
                     // Don't have data yet
-                    var json_url = 'site_data.json';
                     var path = $window.location.href;
                     return $http.get(json_url)
                         .then(function (resp) {
@@ -95,11 +101,13 @@ Traverser.prototype.breadcrumbs = function (resource) {
     var breadcrumbs = [];
     this.parents.forEach(function (item) {
         breadcrumbs.push(
-            {"title": item.title, "href": self.resource_url(item)}
+            {"title": item.title, "href": self.resource_url(item),
+            "__name__": item.__name__}
         )
     });
     breadcrumbs.push(
-        {"title": resource.title, "href": self.resource_url(resource)}
+        {"title": resource.title, "href": self.resource_url(resource),
+        "__name__": self.__name__}
     );
     breadcrumbs[0].href = "#/";
     return breadcrumbs;
