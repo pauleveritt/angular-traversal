@@ -1,6 +1,6 @@
 var traversal = angular.module("traversal", []);
 
-traversal.provider("game", function () {
+traversal.provider("traverser", function () {
     var type;
     return {
         setType: function (value) {

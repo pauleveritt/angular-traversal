@@ -1,7 +1,8 @@
 var app = angular.module("traversalApp", ['traversal', 'ui.router']);
 
-app.config(function ($stateProvider, $urlRouterProvider, gameProvider) {
-    gameProvider.setType("Peaceful");
+app.config(function ($stateProvider, $urlRouterProvider, traverserProvider) {
+    traverserProvider.setType("Peaceful");
+
     $urlRouterProvider.otherwise("/");
     $stateProvider
         .state('layout', {
@@ -25,16 +26,14 @@ app.config(function ($stateProvider, $urlRouterProvider, gameProvider) {
 });
 
 
-app.controller("AppCntrl", function ($scope, game) {
-    $scope.title = game.title;
+app.controller("LayoutView", function ($scope, traverser) {
+    $scope.traverser = traverser;
+    console.log("LayoutView");
 });
 
-app.controller("LayoutView", function ($scope, game) {
-    $scope.title = game.title;
-    console.log("SiteRootView");
-});
-
-app.controller("SiteRootView", function ($scope, game) {
-    $scope.title = game.title;
+app.controller("SiteRootView", function ($scope, traverser) {
+    $scope.change_title = function () {
+        traverser.title = 'Nahh';
+    };
     console.log("SiteRootView");
 });
