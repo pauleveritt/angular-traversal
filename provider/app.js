@@ -32,7 +32,7 @@ app.controller("LayoutView", function ($scope, traverser) {
 });
 
 app.controller("SiteRootView", function ($scope, traverser) {
-    $scope.change_title = function () {
+    $scope.change_breadcrumbs = function () {
         traverser.title = 'Nahh';
     };
     console.log("SiteRootView");

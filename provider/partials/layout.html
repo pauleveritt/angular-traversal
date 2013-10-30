@@ -1,11 +1,15 @@
 <div style="margin: 2em">
-    <h1>Inside Layout Version {{ layout_version }}</h1>
+    <div>
+        <span ng-repeat="p in breadcrumbs">
+            <a ng-href="{{ p.href }}">{{ p.title }}</a>
+            <span ng-show="!$last">>></span>
+        </span>
+    </div>
+    <h1>{{ traverser.title }}</h1>
 
     <p>This part is from <code>partials/layout.html</code> and is
         bound to the <code>layout_state</code>, which also binds to
         the <code>LayoutView</code> controller.</p>
-
-    <p>title: {{ traverser.title }}</p>
 
     <div style="margin: 2em" ui-view/>
 </div>
