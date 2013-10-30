@@ -32,7 +32,7 @@ app.controller("LayoutView", function ($scope, traverser) {
 
 app.controller("SiteRootView", function ($scope, traverser) {
     $scope.change_breadcrumbs = function () {
-        traverser.title = 'Nahh';
+        traverser.context = {title: "Updated Context Title"};
     };
     console.log("SiteRootView");
 });

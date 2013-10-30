@@ -1,9 +1,9 @@
 <div>
     <h1>SiteRoot View</h1>
 
-    <p>title: {{ traverser.title }}</p>
+    <p>title: {{ traverser.context.title }}</p>
     <p>
         <button ng-click="change_breadcrumbs()">Load Breadcrumbs</button>
-        <input ng-model="traverser.title"/>
+        <input ng-model="traverser.context.title"/>
     </p>
 </div>
