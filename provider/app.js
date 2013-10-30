@@ -15,19 +15,18 @@ app.config(function ($stateProvider, $urlRouterProvider, traverserProvider) {
                    url: "/",
                    parent: "layout",
                    controller: "SiteRootView",
-                   templateUrl: "partials/siteroot_view.html",
-                   resolve: {
-                       init: function ($q) {
-                           var defer = $q.defer();
-                           defer.resolve();
-                           return defer.promise;
-                       }}
+                   templateUrl: "partials/siteroot_view.html"
+//                   resolve: {
+//                       init: function ($q) {
+//                           var defer = $q.defer();
+//                           defer.resolve();
+//                           return defer.promise;
+//                       }}
                })
 });
 
 
 app.controller("LayoutView", function ($scope, traverser) {
-    $scope.traverser = traverser;
     console.log("LayoutView");
 });
 
@@ -37,3 +36,8 @@ app.controller("SiteRootView", function ($scope, traverser) {
     };
     console.log("SiteRootView");
 });
+
+app.run(['$rootScope', 'traverser',
+            function ($rootScope, traverser) {
+                $rootScope.traverser = traverser;
+            }]);
