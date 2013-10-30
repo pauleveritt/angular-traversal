@@ -1,19 +1,20 @@
 var traversal = angular.module("traversal", []);
 
 traversal.provider("traverser", function () {
-    var type;
-    var context = {title: "Default Context Title"};
+
     return {
-        setType: function (value) {
-            type = value
-        },
-        setContext: function (value) {
-            context = value
-        },
+
+        // Instance data/methods
         $get: function () {
+            // Instance data
+            var context = {title: "Default Context Title"};
+
+            // Public interface
             return {
-                title: type + "Craft",
-                context: context
+                context: context,
+                setContext: function (value) {
+                    context.title = value;
+                }
             }
         }
     }

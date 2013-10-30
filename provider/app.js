@@ -1,7 +1,6 @@
 var app = angular.module("traversalApp", ['traversal', 'ui.router']);
 
-app.config(function ($stateProvider, $urlRouterProvider, traverserProvider) {
-    traverserProvider.setType("Peaceful");
+app.config(function ($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise("/");
     $stateProvider
@@ -16,24 +15,30 @@ app.config(function ($stateProvider, $urlRouterProvider, traverserProvider) {
                    parent: "layout",
                    controller: "SiteRootView",
                    templateUrl: "partials/siteroot_view.html"
-//                   resolve: {
-//                       init: function ($q) {
-//                           var defer = $q.defer();
-//                           defer.resolve();
-//                           return defer.promise;
-//                       }}
                })
 });
 
 
-app.controller("LayoutView", function ($scope, traverser) {
+app.controller("LayoutView", function ($http, $scope, traverser) {
+
+    $scope.load_data = function () {
+        $http.get('site_data.json')
+            .success(function (data) {
+                         traverser.context.title = data.title;
+                         $scope.breadcrumbs = [
+                             {title: traverser.context.title,
+                                 href: "#/"}
+                         ]
+                     })
+            .error(function () {
+                       console.log('error loading data');
+                   })
+    };
+    $scope.load_data();
     console.log("LayoutView");
 });
 
 app.controller("SiteRootView", function ($scope, traverser) {
-    $scope.change_breadcrumbs = function () {
-        traverser.context = {title: "Updated Context Title"};
-    };
     console.log("SiteRootView");
 });
 
