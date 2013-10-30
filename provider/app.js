@@ -25,24 +25,23 @@ app.controller("LayoutView", function ($http, $scope, traverser) {
         $http.get('site_data.json')
             .success(function (data) {
                          traverser.setRoot(data);
-                         $scope.breadcrumbs = [
-                             {title: traverser.context.title,
-                                 href: "#/"}
-                         ]
                      })
             .error(function () {
                        console.log('error loading data');
                    })
     };
     $scope.load_data();
+
+    /* When the traverser changes (data loaded, user goes to a
+     different location), recalculate the breadcrumbs */
+    $scope.$on("traverserChanged", function (event, context) {
+        $scope.breadcrumbs = [
+            context
+        ]
+    });
     console.log("LayoutView");
 });
 
-app.controller("SiteRootView", function ($scope, traverser) {
+app.controller("SiteRootView", function () {
     console.log("SiteRootView");
 });
-
-app.run(['$rootScope', 'traverser',
-            function ($rootScope, traverser) {
-                $rootScope.traverser = traverser;
-            }]);

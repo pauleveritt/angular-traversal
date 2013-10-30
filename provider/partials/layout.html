@@ -1,7 +1,7 @@
 <div style="margin: 2em">
     <div>
         <span ng-repeat="p in breadcrumbs">
-            <a ng-href="{{ p.href }}">{{ p.title }}</a>
+            <a ng-href="{{ p.name }}">{{ p.title }}</a>
             <span ng-show="!$last">>></span>
         </span>
     </div>

@@ -1,30 +1,30 @@
 {
-    "__name__": "",
+    "name": "#/",
     "title": "Welcome To Site Root3",
     "type": "SiteRoot",
     "items": [
         {
-            "__name__": "docA",
+            "name": "docA",
             "title": "Document A",
             "type": "Document"
         },
         {
-            "__name__": "docB",
+            "name": "docB",
             "title": "Document B",
             "type": "Document"
         },
         {
-            "__name__": "contacts",
+            "name": "contacts",
             "title": "Contacts Folder",
             "type": "Folder",
             "items": [
                 {
-                    "__name__": "1",
+                    "name": "1",
                     "title": "Alice",
                     "type": "Person"
                 },
                 {
-                    "__name__": "42",
+                    "name": "42",
                     "title": "Bob",
                     "type": "Person"
                 }
