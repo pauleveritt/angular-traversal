@@ -7,14 +7,19 @@ traversal.provider("traverser", function () {
         // Instance data/methods
         $get: function () {
             // Instance data
-            var context = {title: "Default Context Title"};
+            var root;
+            var context;
+
+            function setRoot(value) {
+                this.context = value;
+                this.root = value;
+            }
 
             // Public interface
             return {
+                root: root,
                 context: context,
-                setContext: function (value) {
-                    context.title = value;
-                }
+                setRoot: setRoot
             }
         }
     }

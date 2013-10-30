@@ -24,7 +24,7 @@ app.controller("LayoutView", function ($http, $scope, traverser) {
     $scope.load_data = function () {
         $http.get('site_data.json')
             .success(function (data) {
-                         traverser.context.title = data.title;
+                         traverser.setRoot(data);
                          $scope.breadcrumbs = [
                              {title: traverser.context.title,
                                  href: "#/"}
