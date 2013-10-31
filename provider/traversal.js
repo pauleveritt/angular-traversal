@@ -1,13 +1,47 @@
 var traversal = angular.module("traversal", []);
 
+Array.prototype.findByProp = function (prop, value) {
+    /* Given array, find  first with property matching the value */
+    for (var i = 0; i < this.length; i++) {
+        if (this[i][prop] == value) return this[i];
+    }
+    return null;
+};
+
 traversal.provider("traverser", function () {
 
-    var findByProp = function (a, prop, value) {
-        /* Given array, find  first with property matching the value */
-        for (var i = 0; i < a.length; i++) {
-            if (a[i][prop] == value) return a[i];
+    // A helper that assigns __parent__ and __resource_url__
+    var inbound_cleanup = function (_parent, _child) {
+        _child.__parent__ = _parent;
+
+        if (_parent == null) {
+            // We are on the root
+            _child.__resource_url__ = "#/";
+        } else {
+            var pru = _parent.__resource_url__;
+            _child.__resource_url__ = pru + _child.name + '/';
         }
-        return null;
+    };
+
+    // A helper that walks the tree
+    var walk_tree = function (parent, child, callbacks) {
+        // Run our built-in helper for __parent__ / __resource_url__
+        inbound_cleanup(parent, child);
+
+        // Process any custom callbacks to cleanup resource
+        if (callbacks) {
+            callbacks.forEach(function (i) {
+                i(child);
+            })
+        }
+
+        // Recurse into children at child.items
+        if (child.hasOwnProperty('items')) {
+            child.items.forEach(function (item) {
+                walk_tree(child, item, callbacks);
+            })
+        }
+        return child;
     };
 
     return {
@@ -15,8 +49,8 @@ traversal.provider("traverser", function () {
         // Instance data/methods
         $get: function ($rootScope, $location, $state) {
             // Instance data
-            var root;
-            var context;
+            var root = null;
+            var context = null;
 
             // Make these available in templates by stashing them on
             // the $rootScope
@@ -26,8 +60,6 @@ traversal.provider("traverser", function () {
             /*   ###  The traverser  ###  */
             function traverse_to(new_path) {
                 var self = $rootScope.traverser;
-
-                // xxxx
 
                 var view_name = 'default';
                 var next;
@@ -40,8 +72,8 @@ traversal.provider("traverser", function () {
                 path_items.forEach(function (next_name) {
 
                     if (resource.items) {
-                        next = findByProp(resource.items, "name",
-                                          next_name);
+                        next = resource.items.findByProp("name",
+                                                         next_name);
                     } else {
                         next = null;
                     }
@@ -64,21 +96,28 @@ traversal.provider("traverser", function () {
                 $rootScope.$broadcast("traverserChanged", self.context);
                 $state.go(view_state);
             }
+
             /*   ###  /The traverser  ###  */
 
 
             // Register a listener on URL change
             $rootScope.$on(
-                '$locationChangeSuccess', function (event, newUrl) {
+                '$locationChangeSuccess', function (event) {
                     event.preventDefault();
                     traverse_to($location.path());
                 }
             );
 
             // Called from the app, typically in the abstract view
-            function setRoot(value) {
+            function setRoot(data, callbacks) {
+                // Walk tree assigning __parent__ and __resource_url__
+                // while also processing any of the per-resource
+                // callbacks
+
+                walk_tree(null, data, callbacks);
+
                 // Assign root and make traverser available globally
-                this.root = value;
+                this.root = data;
                 $rootScope.traverser = this;
 
                 // Traverse to where the browser says to go

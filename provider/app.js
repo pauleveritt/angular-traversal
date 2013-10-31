@@ -30,10 +30,14 @@ app.config(function ($stateProvider) {
 
 app.controller("LayoutView", function ($http, $scope, traverser) {
 
+    function assign_label(this_resource) {
+        this_resource.label = "xyz";
+    }
+
     $scope.load_data = function () {
         $http.get('site_data.json')
             .success(function (data) {
-                         traverser.setRoot(data);
+                         traverser.setRoot(data, [assign_label]);
                      })
             .error(function () {
                        console.log('error loading data');
@@ -44,11 +48,16 @@ app.controller("LayoutView", function ($http, $scope, traverser) {
     /* When the traverser changes (data loaded, user goes to a
      different location), recalculate the breadcrumbs */
     $scope.$on("traverserChanged", function (event, context) {
-        $scope.breadcrumbs = [
-            context
-        ]
+
+        // Calculate breadcrumbs
+        var breadcrumbs = [];
+        traverser.parents.forEach(function (item) {
+            breadcrumbs.push(item)
+        });
+        breadcrumbs.push(context);
+        $scope.breadcrumbs = breadcrumbs;
+
     });
-    console.log("LayoutView");
 });
 
 app.controller("SiteRootView", function () {

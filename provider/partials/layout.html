@@ -1,15 +1,17 @@
 <div style="margin: 2em">
     <p>
-        Menu: <a ng-href="#/">{{traverser.root.title}}</a> |
+        Menu: <a
+            ng-href="{{ traverser.root.__resource_url__}}">{{traverser.root.title}}</a>
+        |
         <span ng-repeat="m in traverser.root.items">
-          <a ng-href="#/{{m.name}}">{{m.title}}</a>
+          <a ng-href="{{m.__resource_url__}}">{{m.title}}</a>
           <span ng-show="!$last"> | </span>
         </span>
     </p>
 
     <div>
         <span ng-repeat="p in breadcrumbs">
-            <a ng-href="#/{{ p.name }}">{{ p.title }}</a>
+            <a ng-href="{{ p.__resource_url__ }}">{{ p.title }}</a>
             <span ng-show="!$last">>></span>
         </span>
     </div>
