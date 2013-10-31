@@ -16,7 +16,7 @@ traversal.provider("traverser", function () {
 
         if (_parent == null) {
             // We are on the root
-            _child.__resource_url__ = "#/";
+            _child.__resource_url__ = "/";
         } else {
             var pru = _parent.__resource_url__;
             _child.__resource_url__ = pru + _child.name + '/';
