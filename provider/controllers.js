@@ -1,6 +1,6 @@
 var app = angular.module("traversalApp", []);
 
-function LayoutView ($http, $scope, traverser) {
+function LayoutView($http, $scope, traverser) {
 
     function assign_label(this_resource) {
         this_resource.label = "xyz";
@@ -32,14 +32,19 @@ function LayoutView ($http, $scope, traverser) {
     });
 };
 
-function SiteRootView () {
+function SiteRootView($scope, traverser) {
+    $scope.goto_doca = function () {
+        {
+            traverser.traverseTo("/docA");
+        }
+    }
     console.log("SiteRootView");
 };
 
-function FolderView () {
+function FolderView() {
     console.log("FolderView");
 };
 
-function DocumentView () {
+function DocumentView() {
     console.log("DocumentView");
 };

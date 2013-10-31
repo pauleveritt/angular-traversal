@@ -1,8 +1,16 @@
 <div>
     <h2>SiteRoot View</h2>
 
-    <p>title: {{ traverser.context.title }}</p>
+    <p><strong>title:</strong>
+        <code>{{ traverser.context.title }}</code></p>
+
     <p>
-        <input ng-model="traverser.context.title" size="40"/>
+        <label for="context_title">New Title</label>
+        <input id="context_title" size="40"
+               ng-model="traverser.context.title"/>
+    </p>
+
+    <p>
+        <button ng-click="goto_doca()">Goto DocA</button>
     </p>
 </div>

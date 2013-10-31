@@ -58,7 +58,7 @@ traversal.provider("traverser", function () {
 
 
             /*   ###  The traverser  ###  */
-            function traverse_to(new_path) {
+            function traverseTo(new_path) {
                 var self = $rootScope.traverser;
 
                 var view_name = 'default';
@@ -104,7 +104,7 @@ traversal.provider("traverser", function () {
             $rootScope.$on(
                 '$locationChangeSuccess', function (event) {
                     event.preventDefault();
-                    traverse_to($location.path());
+                    traverseTo($location.path());
                 }
             );
 
@@ -121,14 +121,15 @@ traversal.provider("traverser", function () {
                 $rootScope.traverser = this;
 
                 // Traverse to where the browser says to go
-                traverse_to($location.path());
+                traverseTo($location.path());
             }
 
             // Public interface
             return {
                 root: root,
                 context: context,
-                setRoot: setRoot
+                setRoot: setRoot,
+                traverseTo: traverseTo
             }
         }
     }

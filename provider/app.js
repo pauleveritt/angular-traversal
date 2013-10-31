@@ -25,4 +25,9 @@ app.config(function ($stateProvider) {
                    controller: DocumentView,
                    templateUrl: "partials/document_view.html"
                })
+        .state('notfound', {
+                   parent: "layout",
+                   template: "<h2>Not Found</h2>"
+               })
+
 });
