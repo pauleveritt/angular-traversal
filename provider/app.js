@@ -1,8 +1,7 @@
 var app = angular.module("traversalApp", ['traversal', 'ui.router']);
 
-app.config(function ($stateProvider, $urlRouterProvider) {
+app.config(function ($stateProvider) {
 
-    $urlRouterProvider.otherwise("/");
     $stateProvider
         .state('layout', {
                    abstract: true,
@@ -10,8 +9,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                    controller: "LayoutView"
 
                })
-        .state('state1', {
-                   url: "/",
+        .state('siteroot-view', {
+                   url: '*path',
                    parent: "layout",
                    controller: "SiteRootView",
                    templateUrl: "partials/siteroot_view.html"
