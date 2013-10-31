@@ -13,7 +13,7 @@ traversal.provider("traverser", function () {
     return {
 
         // Instance data/methods
-        $get: function ($rootScope, $location) {
+        $get: function ($rootScope, $location, $state) {
             // Instance data
             var root;
             var context;
@@ -22,17 +22,52 @@ traversal.provider("traverser", function () {
             // the $rootScope
             $rootScope.context = context;
 
+
+            /*   ###  The traverser  ###  */
             function traverse_to(new_path) {
                 var self = $rootScope.traverser;
-                var new_name = new_path.slice(1)
-                if (new_name == "") {
-                    self.context = self.root;
-                } else {
-                    self.context = findByProp(self.root.items, "name", new_name);
-                }
-                $rootScope.$broadcast("traverserChanged", self.context);
-            }
 
+                // xxxx
+
+                var view_name = 'default';
+                var next;
+                var resource = self.root; // Use as root for starting loop
+                var parents = [];
+                var path_items = new_path.split('/').filter(function (next_segment) {
+                    return next_segment;
+                });
+
+                path_items.forEach(function (next_name) {
+
+                    if (resource.items) {
+                        next = findByProp(resource.items, "name",
+                                          next_name);
+                    } else {
+                        next = null;
+                    }
+                    if (next) {
+                        parents.push(resource);
+                        resource = next;
+                    } else {
+                        if (next_name) {
+                            view_name = next_name == '' ? 'default' : next_name;
+                        }
+                    }
+                });
+                var type_name = resource.type.toLowerCase();
+                var view_state = type_name + '-' + view_name;
+
+                self.context = resource;
+                self.parents = parents;
+
+                console.log('view_state', view_state);
+                $rootScope.$broadcast("traverserChanged", self.context);
+                $state.go(view_state);
+            }
+            /*   ###  /The traverser  ###  */
+
+
+            // Register a listener on URL change
             $rootScope.$on(
                 '$locationChangeSuccess', function (event, newUrl) {
                     event.preventDefault();
@@ -40,7 +75,7 @@ traversal.provider("traverser", function () {
                 }
             );
 
-
+            // Called from the app, typically in the abstract view
             function setRoot(value) {
                 // Assign root and make traverser available globally
                 this.root = value;

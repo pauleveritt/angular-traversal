@@ -9,11 +9,21 @@ app.config(function ($stateProvider) {
                    controller: "LayoutView"
 
                })
-        .state('siteroot-view', {
+        .state('siteroot-default', {
                    url: '*path',
                    parent: "layout",
                    controller: "SiteRootView",
                    templateUrl: "partials/siteroot_view.html"
+               })
+        .state('folder-default', {
+                   parent: "layout",
+                   controller: "FolderView",
+                   templateUrl: "partials/folder_view.html"
+               })
+        .state('document-default', {
+                   parent: "layout",
+                   controller: "DocumentView",
+                   templateUrl: "partials/document_view.html"
                })
 });
 
@@ -43,4 +53,12 @@ app.controller("LayoutView", function ($http, $scope, traverser) {
 
 app.controller("SiteRootView", function () {
     console.log("SiteRootView");
+});
+
+app.controller("FolderView", function () {
+    console.log("FolderView");
+});
+
+app.controller("DocumentView", function () {
+    console.log("DocumentView");
 });
