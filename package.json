@@ -1,0 +1,29 @@
+{
+    "name": "angular-traversal",
+    "description": "Traversal-style views for AngularJS",
+    "version": "0.2",
+    "author": "Paul Everitt",
+    "engines": [
+        "node"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/pauleveritt/angular-traversal.git"
+    },
+    "devDependencies": {
+        "bower": "*",
+        "grunt": "0.4.1",
+        "grunt-cli": "0.1.6",
+        "grunt-contrib-concat": "*",
+        "grunt-contrib-watch": "0.3.1",
+        "grunt-contrib-clean": "0.4.0",
+        "grunt-contrib-copy": "*",
+        "grunt-contrib-less": "0.5.0",
+        "grunt-karma": "*",
+        "karma-chrome-launcher": "*",
+        "phantomjs": "*",
+        "karma-phantomjs-launcher": "*",
+        "karma-coverage": "*",
+        "karma-ng-html2js-preprocessor": "~0.1"
+    }
+}

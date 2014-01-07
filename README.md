@@ -2,7 +2,7 @@ angular-traversal
 =================
 
 Implementation of traversal in Angular using angularui routing's state
-machine. Send a graph to the client, fireworks ensue.
+machine. Send a graph to the client, fireworks ensue. (Deprecated)
 
 Installation
 ============
