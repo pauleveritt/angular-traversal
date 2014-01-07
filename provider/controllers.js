@@ -1,5 +1,3 @@
-var app = angular.module("traversalApp", []);
-
 function LayoutView($http, $scope, traverser) {
 
     function assign_label(this_resource) {
